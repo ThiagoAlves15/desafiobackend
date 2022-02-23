@@ -7,14 +7,14 @@ default: &default
 development: &development
   <<: *default
   database: desafio_development
-  username: postgres
+  username: desafiopass
   password: desafiopass
   host: 127.0.0.1
 
 test:
   <<: *default
   database: account_test<%= ENV['TEST_ENV_NUMBER'] %>
-  username: postgres
+  username: desafiopass
   password: desafiopass
   host: 127.0.0.1
 

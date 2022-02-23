@@ -1,4 +1,5 @@
 class CreateAccountAndNotifyPartners < ApplicationService
+  # redundant class, refactor
   def initialize(data)
     @params = data
   end

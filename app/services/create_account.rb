@@ -21,12 +21,14 @@ class CreateAccount < ApplicationService
   end
 
   def is_account_valid?
+    # refactor this return
     return false if @payload.blank?
 
     true
   end
 
   def account_params
+    # duplicated code, refactor
     if @from_fintera
       {
         name: @payload[:name],

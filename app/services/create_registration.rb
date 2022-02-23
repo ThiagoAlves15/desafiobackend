@@ -19,15 +19,18 @@ class CreateRegistration < ApplicationService
 
   private
 
+  # redundant class, refactor
   def create_account_and_notify_partner
     CreateAccountAndNotifyPartner.call(@payload)
   end
 
+  # redundant class, refactor
   def create_account_and_notify_partners
     CreateAccountAndNotifyPartners.call(@payload)
   end
 
   def create_account
+    # duplicated code, refactor
     if @payload[:name].include?("Fintera") && fintera_users(@payload) == true
       CreateAccount.call(@payload, true)
     else
@@ -36,6 +39,7 @@ class CreateRegistration < ApplicationService
   end
 
   def fintera_users(payload)
+    # refactor this
     with_fintera_user = false
 
     payload[:users].each do |user|
