@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  belongs_to :account
+  has_many :entities_users
+  has_many :entities, through: :entities_users
 
   after_create :send_welcome_email
 
