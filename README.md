@@ -26,8 +26,9 @@ Dicas:
 2. Deixamos alguns trechos do código sem cobertura, cabe a você descobrir quais pontos são e adicionar os novos testes
 3. Criação de duas novas funcionalidades:
 
+   - Estamos falando com alguns parceiros, que irão nos ajudar a adquirir novos clientes. Eles hoje usam o [SQS](https://aws.amazon.com/sqs/) para realizar essa comunicação. Precisamos criar um consumidor que receba as mensagens de uma fila, e siga com de criação de conta já existente. O payload que será enviado é o mesmo payload JSON que recebemos via API REST. Chegamos a criar uma suíte de teste com dois contextos e o exemplo do payload em: `spec/workers/new_account_worker_spec.rb`.
+
    - Hoje a criação de uma conta, também inclui o cadastros dos usuários, desta forma UMA conta pode ter N usuários, e UM usuário pertence a UMA conta. Porém um novo requisito chegou: alguns dos nossos clientes têm mais de uma empresa, e precisam que os seus usuários possam acessar diferentes empresas. Portanto, precisamos ter um cadastro único de usuários, e esses usuários estarem relacionados as empresas (chamadas de `entities`), e não mais a conta em si (diagrama de como é esperado ficar está abaixo).
-   - Estamos falando com alguns parceiros, que irão nos ajudar a adquirir novos clientes. Eles hoje usam o [SQS](https://aws.amazon.com/sqs/) para realizar essa comunicação. Precisamos criar um consumidor que receba as mensagens de uma fila, e siga com de criação de conta já existente. O payload que será enviado é o mesmo payload JSON que recebemos via API REST. Chegamos a criar uma suíte de teste com dois contextos e o exemplo do payload em: `spec/workers/new_account_worker_spec.rb`
 
 ![Diagrama do banco](docs/assets/diagram.png)
 
