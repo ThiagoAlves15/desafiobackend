@@ -1,6 +1,6 @@
-require "./lib/workers/new_registation_worker"
+require "./lib/workers/new_account_worker"
 
-RSpec.describe "Workers::NewRegistrationWorker" do
+RSpec.describe "Workers::NewAccountWorker" do
   describe "#perform" do
     subject(:perform) { described_class.new.perform(sqs_message, body) }
 
@@ -19,7 +19,7 @@ RSpec.describe "Workers::NewRegistrationWorker" do
     end
 
     context "when payload is valid" do
-      xit "creates a new registration" do
+      xit "creates a new account" do
       end
     end
 

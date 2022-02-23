@@ -1,8 +1,8 @@
 module Api
   module V1
-    class RegistrationsController < ApplicationController
+    class AccountsController < ApplicationController
       def create
-        result = CreateRegistration.call(create_params)
+        result = CreateAccount.call(create_params)
 
         if result.success?
           render json: result.data, status: :created
