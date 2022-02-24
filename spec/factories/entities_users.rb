@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :entities_user do
-    entity_id { 1 }
-    user_id { 1 }
+    association :entity
+    association :user
   end
 end

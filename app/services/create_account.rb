@@ -55,7 +55,6 @@ class CreateAccount < ApplicationService
         last_name: user[:last_name],
         email: user[:email],
         phone: user[:phone].to_s.gsub(/\D/, ""),
-        account_id: account.id,
         created_at: Time.zone.now,
         updated_at: Time.zone.now,
       }
