@@ -6,14 +6,12 @@ module Workers
 
     shoryuken_options queue: "new_account", auto_delete: true, body_parser: :json
 
-    def perform(sqs_msg, body)
-      begin
-        CreateAccount.call(account_params(body))
-      rescue StandardError
-        Rails.logger.error("Could not create account")
+    def perform(_sqs_msg, body)
+      CreateAccount.call(account_params(body))
+    rescue StandardError
+      Rails.logger.error("Could not create account")
 
-        raise Workers::NewAccountWorker::CreateAccountFailed
-      end
+      raise Workers::NewAccountWorker::CreateAccountFailed
     end
 
     private

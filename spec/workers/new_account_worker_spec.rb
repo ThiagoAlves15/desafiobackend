@@ -5,48 +5,32 @@ RSpec.describe Workers::NewAccountWorker do
     subject(:perform) { described_class.new.perform(sqs_msg, body) }
 
     before { allow(CreateAccount).to receive(:call) }
-    before { allow(Shoryuken).to receive(:launcher_executor) }
 
-    let(:sqs_msg) {
-      Aws::SQS::Client.new(stub_responses: true).send_message(
-        queue_url: "https://sqs.sa-east-1.amazonaws.com/111111111111/new_account",
-        message_body: "#{body}",
+    let(:sqs_msg) do
+      Aws::SQS::Client.new.send_message(
+        queue_url: "https://eurozone.amazonaws.com/111111111111/new_account",
+        message_body: body.to_s
       )
-    }
+    end
 
     let(:body) do
       {
-        "account": {
-          "name": Faker::Superhero.name
+        account: {
+          name: Faker::Superhero.name,
         },
-        "users": [
+        users: [
           {
-            "email": Faker::Internet.email,
-            "first_name": Faker::Name.first_name,
-            "last_name": Faker::Name.last_name,
-            "phone": Faker::PhoneNumber.cell_phone
-          }
-        ]
+            email: Faker::Internet.email,
+            first_name: Faker::Name.first_name,
+            last_name: Faker::Name.last_name,
+            phone: Faker::PhoneNumber.cell_phone,
+          },
+        ],
       }
     end
 
-    # {
-    #   "account": {
-    #     "name": "Faker::Superhero.name"
-    #   },
-    #   "users": [
-    #     {
-    #       "email": "Faker::Internet.email",
-    #       "first_name": "Faker::Name.first_name",
-    #       "last_name": "Faker::Name.last_name",
-    #       "phone": "Faker::PhoneNumber.cell_phone"
-    #     }
-    #   ]
-    # }
-
     context "when payload is valid" do
       it "creates a new account" do
-        # rspec spec/workers/new_account_worker_spec.rb
         expect { perform }.not_to raise_error
 
         expect(CreateAccount).to have_received(:call)
