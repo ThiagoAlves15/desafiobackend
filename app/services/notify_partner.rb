@@ -1,5 +1,5 @@
 class NotifyPartner
-  def initialize(partner = "internal", message = "new registration")
+  def initialize(partner = "internal", message = "new account")
     @partner = partner
     @message = message
   end

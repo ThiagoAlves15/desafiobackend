@@ -4,7 +4,7 @@ RSpec.describe NotifyPartner do
 
     let!(:stub) do
       stub_request(:post, "https://61b69749c95dd70017d40f4b.mockapi.io/awesome_partner_leads")
-        .with(body: { "message" => "new registration", "partner" => "internal" })
+        .with(body: { "message" => "new account", "partner" => "internal" })
         .to_return(status: 200, body: "", headers: {})
     end
 
