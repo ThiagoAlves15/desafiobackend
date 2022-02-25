@@ -5,14 +5,10 @@ class CreateAccount < ApplicationService
   end
 
   def call
-    if !is_account_valid?
-      @errors << "Account is not valid"
-
-      Result.new(false, nil, @errors.join(","))
-    else
+    if account_valid?
       account = Account.new(account_params)
 
-      if account.save && User.insert_all(users_params(account))
+      if account.save && User.insert_all(users_params)
         notify_partner if @payload[:from_partner] == true
 
         Result.new(true, account)
@@ -21,23 +17,27 @@ class CreateAccount < ApplicationService
 
         Result.new(false, nil, @errors.join(","))
       end
+    else
+      @errors << "Account is not valid"
+
+      Result.new(false, nil, @errors.join(","))
     end
   end
 
   private
 
-  def is_account_valid?
+  def account_valid?
     @payload.present?
   end
 
   def account_params
     {
       name: @payload[:name],
-      active: is_from_fintera?,
+      active: from_fintera?,
     }
   end
 
-  def is_from_fintera?
+  def from_fintera?
     return false unless @payload[:name].include? "Fintera"
 
     @payload[:users].each do |user|
@@ -47,8 +47,7 @@ class CreateAccount < ApplicationService
     false
   end
 
-  def users_params(account)
-    # breaks when no users in payload, guard this
+  def users_params
     @payload[:users].map do |user|
       {
         first_name: user[:first_name],

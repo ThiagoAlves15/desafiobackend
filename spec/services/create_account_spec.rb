@@ -17,7 +17,7 @@ RSpec.describe CreateAccount do
               first_name: Faker::Name.first_name,
               last_name: Faker::Name.last_name,
               email: user_email,
-              phone: "(11) 97111-0101",
+              phone: Faker::PhoneNumber.cell_phone,
             },
           ],
         }
@@ -28,11 +28,12 @@ RSpec.describe CreateAccount do
 
       describe "#notify_partners" do
         before { allow(NotifyPartner).to receive(:new).and_return(notify_partner_double) }
+
         let(:notify_partner_double) { instance_double(NotifyPartner) }
 
         context "when account is not a partner" do
           it "notifies partner" do
-            expect(notify_partner_double).to_not receive(:perform)
+            expect(notify_partner_double).not_to receive(:perform)
 
             call
           end
@@ -60,7 +61,7 @@ RSpec.describe CreateAccount do
         end
       end
 
-      describe "#is_from_fintera?" do
+      describe "#from_fintera?" do
         context "when account not from fintera" do
           it "is not active" do
             expect(subject.data.active).to be false
@@ -103,7 +104,7 @@ RSpec.describe CreateAccount do
               first_name: Faker::Name.first_name,
               last_name: Faker::Name.last_name,
               email: Faker::Internet.email,
-              phone: "(11) 97111-0101",
+              phone: Faker::PhoneNumber.cell_phone,
             },
           ],
         }

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :entities_users
+  has_many :entities_users, dependent: :destroy
   has_many :entities, through: :entities_users
 
   after_create :send_welcome_email
