@@ -40,27 +40,7 @@ RSpec.describe "Api::V1::AccountsController", type: :request do
 
       it "renders 402 unprocessable entity" do
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(JSON.parse(response.body)).to include({"error" => "Name can't be blank"})
-      end
-    end
-
-    context "when missing params" do
-      let(:params) do
-        {
-          account: {
-            users: [{
-              email: Faker::Internet.email,
-              first_name: Faker::Name.female_first_name,
-              last_name: Faker::Name.last_name,
-              phone: Faker::PhoneNumber.cell_phone,
-            }],
-          },
-        }
-      end
-
-      xit "renders 402 unprocessable entity" do
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(JSON.parse(response.body)).to include({"error" => "Name can't be blank"})
+        expect(JSON.parse(response.body)).to include({ "error" => "Name can't be blank" })
       end
     end
   end

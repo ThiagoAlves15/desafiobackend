@@ -1,0 +1,10 @@
+aws:
+  access_key_id: <%= ENV["AWS_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["AWS_SECRET_KEY"] %>
+  region: <%= ENV["AWS_REGION"] %>
+concurrency: 10
+pool: 1
+delay: 0
+pidfile: tmp/pids/shoryuken.pid
+queues:
+  - new_account

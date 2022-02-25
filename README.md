@@ -50,6 +50,8 @@ Crie um arquivo `.env` e atualize as variáveis que precisam ser definidas: `cp 
 
 Já para iniciar a aplicação: `foreman start`
 
+Para iniciar o shoryuken para consumir a fila, rode: `bundle exec shoryuken -R -r ./lib/workers/new_account_worker.rb -C config/shoryuken.yml`
+
 ## Testes
 
 O desafio back-end permite execução da suite de testes em paralelo, através da gem `parallel_tests`, para melhor performance. Para executar a suite de testes:
